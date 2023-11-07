@@ -128,26 +128,93 @@ def FullHouse(hand: list):
 
 #Returns value of the hand if Flush, 0 if not. 
 def Flush(hand: list):
+    ranks = list ( map ( lambda x: x>>2, hand))
+    suits = list ( map ( lambda x: x&0b11, hand))
+
+    if  len(set(suits)) == 1:           #flush
+        binhandrank = 0b0101
+        binhighcard = ranks[0];
+        binvalue = binhandrank << 4
+        binvalue = binvalue | binhighcard
+        return binvalue
     return 0
+  
 
 #Returns value of the hand if Straight, 0 if not. 
 def Straight(hand: list):
+    ranks = list ( map ( lambda x: x>>2, hand))
+    if (ranks[0] == ranks[1] + 1) and (ranks[0] == ranks[2] + 2) and (ranks[0] == ranks[3] + 3) and (ranks[0] == ranks[4] + 4): #Check Straight
+        binhandrank = 0b0100
+        binhighcard = ranks[0]
+        binvalue = binhandrank << 4
+        binvalue = binvalue | binhighcard
+        return binvalue
     return 0
 
 #Returns value of the hand if Three of a Kind, 0 if not. 
 def Three(hand: list):
+    ranks = list ( map ( lambda x: x>>2, hand))
+
+    binhighcard = ranks[2]      
+    highcount = ranks.count(binhighcard)
+    if highcount != 3:          #check for 3 of a kind
+        return 0
+    if len (set (ranks)) == 3:  #check if the two other cards are different.
+        binhandrank = 0b0011
+        binvalue = binhandrank << 4
+        binvalue = binvalue | binhighcard
+        return binvalue
     return 0
 
 #Returns value of the hand if Two Pairs, 0 if not. 
 def TwoPairs(hand: list):
-    return 0
+    ranks = list ( map ( lambda x: x>>2, hand))
+
+    rank1 = ranks[1]
+    rank2 = ranks[3]
+    count1 = ranks.count(rank1)
+    if count1 != 2:
+        return 0
+    count2 = ranks.count(rank2)
+    if count2 != 2:
+        return 0
+    binhandrank = 0b0010
+    binhighcard = ranks[1]
+    binvalue = binhandrank << 4
+    binvalue = binvalue | binhighcard
+    return binvalue
 
 #Returns value of the hand if One Pair, 0 if not. 
 def Pair(hand: list):
-    return 0
+    ranks = list ( map ( lambda x: x>>2, hand))
+    twocount = 0
+    for rank in ranks:
+        c = ranks.count(rank)
+        if c > 2:                                   #only pairs or below should exist.
+            return 0
+        elif c ==2 :
+            binhighcard = rank
+            twocount +=1                           
+
+    if twocount/2 != 1:    #only one instance of 2 should exist, divide by two for double counting
+        return 0
+    else:
+        binhandrank = 0b0001
+        binvalue = binhandrank << 4
+        binvalue = binvalue | binhighcard
+        return binvalue
+
+  
 
 #Returns value of the hand if High Card, 0 if not. 
 def HighCard(hand: list):
+    ranks = list ( map ( lambda x: x>>2, hand))
+    if len (set (ranks)) == 5:
+        binhandrank = 0b0000
+        binhighcard = ranks[0]
+        binvalue = binhandrank << 4
+        binvalue = binvalue | binhighcard
+        return binvalue
     return 0
 
 #converts list of string into list of binary values
