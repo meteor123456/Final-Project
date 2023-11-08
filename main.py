@@ -260,8 +260,8 @@ def main():
 
     val1 = evaluatehand(hand1_bin);
     val2 = evaluatehand(hand2_bin);
-    print("Hand 1 value: " + str(bin(val1)));
-    print("Hand 2 value: " + str(bin(val2)));
+    print("Hand 1 value: " + str(bin(val1)) + " " + str(val1));
+    print("Hand 2 value: " + str(bin(val2)) + " " + str(val2));
     if val1 > val2:
         print("Hand 1 wins!")
     elif val1 < val2:
