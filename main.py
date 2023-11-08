@@ -57,8 +57,8 @@ def evaluatehand(hand: list):
 
 #Returns value of the hand if Royal Flush, 0 if not. 
 def Royal(hand: list):
-    ranks = list ( map ( lambda x: x>>2, hand))
-    suits = list ( map ( lambda x: x&0b11, hand))
+    ranks = list ( map ( lambda x: x>>2, hand))     #binary list of only the rank values of the hand
+    suits = list ( map ( lambda x: x&0b11, hand))   #binary list of only the suits of the hand
 
     if  len(set(suits)) != 1:           #not flush
         return 0
