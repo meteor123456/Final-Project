@@ -202,8 +202,7 @@ def HighCard(hand: list):
     return 0
 
 #converts list of string into list of binary values
-def str2binarylist(hand: str):
-    strlist = hand.split(" ")
+def strlist2binarylist(hand: list):
     binlist = [];
     suit2bin = {
         "C" : 0b00,
@@ -227,7 +226,7 @@ def str2binarylist(hand: str):
         "A" : 0b1100
     }
 
-    for s in strlist:
+    for s in hand:
         binsuit = suit2bin[s[-1]];
         binrank = rank2bin[s[:-1]];
         finalbin = binrank << 2;
