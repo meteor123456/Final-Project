@@ -235,9 +235,9 @@ def strlist2binarylist(hand: list):
     
     return binlist
 
-def compareHandStr(hand1, hand2):
-    hand1_bin = str2binarylist(hand1)
-    hand2_bin = str2binarylist(hand2)
+def compareHandStr(hand1:list, hand2:list):
+    hand1_bin = strlist2binarylist(hand1)
+    hand2_bin = strlist2binarylist(hand2)
 
     val1 = evaluatehand(hand1_bin);
     val2 = evaluatehand(hand2_bin);
