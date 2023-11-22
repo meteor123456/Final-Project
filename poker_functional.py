@@ -171,21 +171,15 @@ def TwoPairs(hand: list):
 #Returns value of the hand if One Pair, 0 if not. 
 def Pair(hand: list):
     ranks = list ( map ( lambda x: x>>2, hand))
-    twocount = 0
-    for rank in ranks:
-        c = ranks.count(rank)
-        if c > 2:                                   #only pairs or below should exist.
-            return 0
-        elif c ==2 :
-            binhighcard = rank
-            twocount +=1                           
 
-    if twocount/2 != 1:    #only one instance of 2 should exist, divide by two for double counting
+    counts = [ranks.count(x) for x in ranks ]
+
+    if counts.count(2)/2 != 1: #only one instance of 2 should exist, divide by two for double counting
         return 0
     else:
+        binhighcard = ranks[counts.index(2)]
         binhandrank = 0b0001
         binvalue = (binhandrank << 4) | binhighcard
-        
         return binvalue
 
   
@@ -226,12 +220,8 @@ def strlist2binarylist(hand: list):
         "A" : 0b1100
     }
 
-    for s in hand:
-        binsuit = suit2bin[s[-1]];
-        binrank = rank2bin[s[:-1]];
-        finalbin = binrank << 2;
-        finalbin = finalbin | binsuit
-        binlist.append(finalbin)
+
+    binlist = [  (rank2bin[s[:-1]]<<2)|suit2bin[s[-1]] for s in hand  ]
     
     return binlist
 

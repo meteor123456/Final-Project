@@ -71,17 +71,35 @@ while True:
     if event == sg.WIN_CLOSED:
         break
     if event == "-COMPARE-":
-        hand1_bin = pf.strlist2binarylist([values["-RS0-"]+values["-SS0-"],
-                                           values["-RS1-"]+values["-SS1-"],
-                                           values["-RS2-"]+values["-SS2-"],
-                                           values["-RS3-"]+values["-SS3-"],
-                                           values["-RS4-"]+values["-SS4-"]])
+        hand1 = [values["-RS0-"]+values["-SS0-"],
+                values["-RS1-"]+values["-SS1-"],
+                values["-RS2-"]+values["-SS2-"],
+                values["-RS3-"]+values["-SS3-"],
+                values["-RS4-"]+values["-SS4-"]]
         
-        hand2_bin = pf.strlist2binarylist([values["-RS5-"]+values["-SS5-"],
-                                           values["-RS6-"]+values["-SS6-"],
-                                           values["-RS7-"]+values["-SS7-"],
-                                           values["-RS8-"]+values["-SS8-"],
-                                           values["-RS9-"]+values["-SS9-"]])
+        hand1set = set(hand1)
+        if len(hand1set) != 5:
+            sg.popup("Hand 1 has to have unique cards")
+            continue
+        
+        hand2 = [values["-RS5-"]+values["-SS5-"],
+                values["-RS6-"]+values["-SS6-"],
+                values["-RS7-"]+values["-SS7-"],
+                values["-RS8-"]+values["-SS8-"],
+                values["-RS9-"]+values["-SS9-"]]
+
+        hand2set = set(hand2)
+        if len(hand2set ) != 5:
+            sg.popup("Hand 2 has to have unique cards")
+            continue
+
+        if not hand1set.isdisjoint(hand2set):
+            sg.popup("Hands cannot share the same cards")
+            continue
+
+        hand1_bin = pf.strlist2binarylist(hand1)
+        
+        hand2_bin = pf.strlist2binarylist(hand2)
         
         val1 = pf.evaluatehand(hand1_bin);
         val2 = pf.evaluatehand(hand2_bin);
