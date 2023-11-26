@@ -197,7 +197,6 @@ def HighCard(hand: list):
 
 #converts list of string into list of binary values
 def strlist2binarylist(hand: list):
-    binlist = [];
     suit2bin = {
         "C" : 0b00,
         "D" : 0b01,
@@ -219,12 +218,11 @@ def strlist2binarylist(hand: list):
         "K" : 0b1011,
         "A" : 0b1100
     }
-
-
-    binlist = [  (rank2bin[s[:-1]]<<2)|suit2bin[s[-1]] for s in hand  ]
+    binlist = [ (rank2bin[s[:-1]]<<2)|suit2bin[s[-1]] for s in hand  ]
     
     return binlist
 
+#compares two given string lists of a hand. Returns a string denoting the more valuable hand.
 def compareHandStr(hand1:list, hand2:list):
     hand1_bin = strlist2binarylist(hand1)
     hand2_bin = strlist2binarylist(hand2)

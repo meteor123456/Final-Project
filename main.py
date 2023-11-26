@@ -153,7 +153,9 @@ def Straight(hand: list):
 
 #Returns value of the hand if Three of a Kind, 0 if not. 
 def Three(hand: list):
-    ranks = list ( map ( lambda x: x>>2, hand))
+    ranks = []
+    for r in hand:
+        ranks.append(r>>2)
 
     binhighcard = ranks[2]      
     highcount = ranks.count(binhighcard)
@@ -168,7 +170,9 @@ def Three(hand: list):
 
 #Returns value of the hand if Two Pairs, 0 if not. 
 def TwoPairs(hand: list):
-    ranks = list ( map ( lambda x: x>>2, hand))
+    ranks = []
+    for r in hand:
+        ranks.append(r>>2)
 
     rank1 = ranks[1]
     rank2 = ranks[3]
@@ -186,7 +190,10 @@ def TwoPairs(hand: list):
 
 #Returns value of the hand if One Pair, 0 if not. 
 def Pair(hand: list):
-    ranks = list ( map ( lambda x: x>>2, hand))
+    ranks = []
+    for r in hand:
+        ranks.append(r>>2)
+    
     twocount = 0
     for rank in ranks:
         c = ranks.count(rank)
