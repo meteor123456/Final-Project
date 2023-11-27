@@ -197,13 +197,14 @@ def Pair(hand: list):
     twocount = 0
     for rank in ranks:
         c = ranks.count(rank)
-        if c > 2:                                   #only pairs or below should exist.
+        if c > 2:          #only pairs or below should exist.
             return 0
         elif c ==2 :
             binhighcard = rank
             twocount +=1                           
-
-    if twocount/2 != 1:    #only one instance of 2 should exist, divide by two for double counting
+    
+    #only one instance of 2 should exist, divide by two for double counting
+    if twocount/2 != 1:
         return 0
     else:
         binhandrank = 0b0001

@@ -35,8 +35,6 @@ def evaluatehand(hand: list):
         return HighCard(hand);
 
 
-
-
 #All these function assumes the hand is sorted from greatest to least. 
 
 #Returns value of the hand if Royal Flush, 0 if not. 
