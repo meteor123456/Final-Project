@@ -1,5 +1,3 @@
-import PySimpleGUI as sg
-
 #takes in a list of 5 integers and returns the decimal value of the 8-bit binary()
 def evaluatehand(hand: list):
     hand.sort(reverse=True);
